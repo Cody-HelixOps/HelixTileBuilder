@@ -98,6 +98,7 @@ function createWindow() {
     minWidth: 980,
     minHeight: 660,
     title: 'Helix Tile Manager',
+    icon: path.join(__dirname, 'assets', 'icon.png'),
     backgroundColor: '#0a0f1e',
     webPreferences: {
       preload: path.join(__dirname, 'preload.js'),
