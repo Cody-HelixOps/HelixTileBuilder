@@ -1,6 +1,6 @@
 {
   "name": "helix-tile-desktop",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Create and manage custom application tiles on the Helix Portal.",
   "author": "Helix",
   "main": "src/main.js",
