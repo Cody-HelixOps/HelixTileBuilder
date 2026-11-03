@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data:">
+  <meta name="description" content="Helix Tile Manager: create custom application tiles on your Helix Portal from a Windows or macOS app.">
+  <title>Helix Tile Manager</title>
+  <link rel="stylesheet" href="site.css">
+</head>
+<body>
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
+
+  <nav class="top">
+    <a class="brand" href="#top"><span class="logo" aria-hidden="true"></span><span>Helix Tile Manager</span></a>
+    <div class="links">
+      <a href="#get-started">Get started</a>
+      <a href="#icons">Icons</a>
+      <a href="#faq">FAQ</a>
+      <a href="web/">Browser version</a>
+    </div>
+  </nav>
+
+  <header class="hero" id="top">
+    <h1>Put your own apps on the<br>Helix Portal</h1>
+    <p class="lead">A small desktop app for Windows and macOS. Enter a name, a description and a link, pick an icon from 72 options, and your tile shows up on the portal for everyone.</p>
+    <div class="downloads">
+      <a id="dlWin" class="btn big" href="#" data-file="Helix-Tile-Manager-win.exe">
+        <span class="os">Download for Windows</span><span class="sub">.exe, portable, no installer</span>
+      </a>
+      <a id="dlMac" class="btn big alt" href="#" data-file="Helix-Tile-Manager-mac.dmg">
+        <span class="os">Download for macOS</span><span class="sub">.dmg, drag to Applications</span>
+      </a>
+    </div>
+    <p id="dlNote" class="note"></p>
+    <p class="note"><a id="allReleases" href="#">All releases</a> &middot; <a href="web/">Prefer no install? Use the browser version</a></p>
+    <img class="shot" src="assets/app-preview.jpg" alt="Helix Tile Manager showing a connected portal, a live tile preview and a list of custom tiles" width="800" height="562">
+  </header>
+
+  <section class="cards">
+    <article><h3>Live preview</h3><p>See the tile exactly as it will look on the portal before you create it.</p></article>
+    <article><h3>72 icons</h3><p>Line-art icons in Helix orange, searchable by name. No design work needed.</p></article>
+    <article><h3>Sign in your way</h3><p>Your portal's own sign-in window opens, so SSO and MFA work. The app never sees your password.</p></article>
+    <article><h3>Manage tiles</h3><p>List, edit and remove the custom tiles you created, all in one window.</p></article>
+  </section>
+
+  <section id="get-started" class="steps">
+    <h2>Get started</h2>
+
+    <ol class="guide">
+      <li>
+        <h3>Download and open the app</h3>
+        <p>Use the button above for your computer. There is nothing to install on Windows: double-click the <code>.exe</code>. On macOS, open the <code>.dmg</code> and drag <strong>Helix Tile Manager</strong> to Applications.</p>
+        <details>
+          <summary>Seeing a security warning on first launch?</summary>
+          <p>The app is not code-signed yet, so your system asks you to confirm once.</p>
+          <ul>
+            <li><strong>Windows:</strong> on the blue SmartScreen screen choose <em>More info</em>, then <em>Run anyway</em>.</li>
+            <li><strong>macOS:</strong> right-click the app, choose <em>Open</em>, then <em>Open</em> again. If it says the app is damaged, run <code>xattr -cr "/Applications/Helix Tile Manager.app"</code> in Terminal once.</li>
+          </ul>
+        </details>
+      </li>
+      <li>
+        <h3>Enter your environment</h3>
+        <p>In <strong>Connect your environment</strong>, fill in two fields:</p>
+        <ul>
+          <li><strong>Portal URL</strong>: the address of your Helix Portal, for example <code>https://mytenant-itom.onbmc.com</code>.</li>
+          <li><strong>Icon site URL</strong>: this website. The portal needs a web address for each icon, and this site hosts all 72. Copy the value below.</li>
+        </ul>
+        <div class="copybox">
+          <code id="siteUrl">https://</code>
+          <button id="copySite" type="button" class="btn small">Copy</button>
+        </div>
+      </li>
+      <li>
+        <h3>Sign in</h3>
+        <p>Click <strong>Save and sign in</strong>. Your portal opens in a window. Sign in as you normally do, then close that window. The status at the top turns green and shows who you are.</p>
+        <p class="hint">You need a portal role that can manage custom applications. Administrator works.</p>
+      </li>
+      <li>
+        <h3>Create a tile</h3>
+        <p>Enter the <strong>name</strong>, a short <strong>description</strong> and the <strong>destination URL</strong> the tile should open. Pick an icon, check the live preview, then click <strong>Create tile</strong>.</p>
+      </li>
+      <li>
+        <h3>Find it on the portal</h3>
+        <p>Open your Helix Portal home page and choose the <strong>Custom applications</strong> tab. Your tile is there, and it is visible to every portal user. Clicking it opens your destination URL in a new browser tab.</p>
+      </li>
+      <li>
+        <h3>Edit or remove later</h3>
+        <p>The <strong>Your custom tiles</strong> list shows everything you have created. <strong>Edit</strong> changes the description, link or icon. <strong>Remove</strong> deletes the tile for all users after you confirm.</p>
+      </li>
+    </ol>
+  </section>
+
+  <section id="icons" class="gallery">
+    <h2>72 icons to choose from</h2>
+    <p class="lead small">Every icon is a plain SVG hosted on this site.</p>
+    <div id="iconGrid" class="icon-grid"></div>
+  </section>
+
+  <section id="faq" class="faq">
+    <h2>Questions</h2>
+    <details>
+      <summary>Why does the app need an Icon site URL?</summary>
+      <p>The portal only accepts a normal web address for a tile icon, not an embedded image. This site serves the icons, and the app builds each tile's icon address from it. If you leave the field empty, tiles use the default portal icon.</p>
+    </details>
+    <details>
+      <summary>Is it safe? What about my password?</summary>
+      <p>The app never asks for a password. Sign-in happens in the portal's own page inside a separate window, the same as in a browser. The app stores only your two URLs on your computer and talks only to your portal.</p>
+    </details>
+    <details>
+      <summary>Who can see the tiles?</summary>
+      <p>Everyone who uses that portal. Remove a tile from the app if you only wanted to test.</p>
+    </details>
+    <details>
+      <summary>It says I am not signed in, or the session expired.</summary>
+      <p>Click <strong>Save and sign in</strong> again. Portal sessions time out, and the app has to use a current one.</p>
+    </details>
+    <details>
+      <summary>Creating a tile fails with a permission error.</summary>
+      <p>Your portal user needs a role that can manage custom applications, such as Administrator. Ask your portal admin.</p>
+    </details>
+    <details>
+      <summary>The tile shows the default icon instead of mine.</summary>
+      <p>Check that <strong>Icon site URL</strong> matches this site's address exactly, with no trailing page name, and that this site is still online. Edit the tile and pick the icon again to refresh it.</p>
+    </details>
+    <details>
+      <summary>Can I use it without installing anything?</summary>
+      <p>Yes. The <a href="web/">browser version</a> generates a small script that you run on your portal page. The desktop app is simpler.</p>
+    </details>
+  </section>
+
+  <footer>
+    <p>Helix Tile Manager is an independent helper tool and is not an official product of its vendor.</p>
+  </footer>
+
+  <script src="icons-data.js"></script>
+  <script src="site.js"></script>
+</body>
+</html>

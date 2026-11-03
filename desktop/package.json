@@ -1,0 +1,25 @@
+{
+  "name": "helix-tile-desktop",
+  "version": "1.0.0",
+  "description": "Create and manage custom application tiles on the Helix Portal.",
+  "author": "Helix",
+  "main": "src/main.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "electron .",
+    "dist:win": "electron-builder --win portable",
+    "dist:mac": "electron-builder --mac dmg"
+  },
+  "devDependencies": {
+    "electron": "^33.2.0",
+    "electron-builder": "^25.1.8"
+  },
+  "build": {
+    "appId": "com.helix.tiledesktop",
+    "productName": "Helix Tile Manager",
+    "artifactName": "Helix-Tile-Manager-${os}.${ext}",
+    "files": ["src/**/*", "package.json"],
+    "win": { "target": ["portable"], "signAndEditExecutable": false },
+    "mac": { "target": ["dmg"], "category": "public.app-category.developer-tools" }
+  }
+}

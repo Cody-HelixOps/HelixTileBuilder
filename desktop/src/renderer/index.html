@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self'; img-src 'self' data: https:">
+  <title>Helix Tile Manager</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="glow g1"></div>
+  <div class="glow g2"></div>
+
+  <header class="hero compact">
+    <div class="brand">
+      <span class="logo" aria-hidden="true"></span>
+      <span class="brand-name">Helix</span>
+    </div>
+    <h1>Tile Manager</h1>
+    <p class="tagline">Create and manage custom application tiles on your Helix Portal.</p>
+    <div id="status" class="status"><span class="dot"></span><span id="statusText">Not connected</span></div>
+  </header>
+
+  <main>
+    <div class="left">
+      <section class="panel">
+        <div class="panel-head"><span class="num">1</span><h2>Connect your environment</h2></div>
+        <div class="field">
+          <label for="portalUrl">Portal URL</label>
+          <input id="portalUrl" type="url" placeholder="https://mytenant-itom-demo.onbmc.com" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="iconBaseUrl">Icon site URL <span class="hint">(your GitHub Pages site that hosts the icons)</span></label>
+          <input id="iconBaseUrl" type="url" placeholder="https://myname.github.io/helix-tile-builder" autocomplete="off">
+        </div>
+        <div class="row wrap">
+          <button id="signIn" type="button" class="primary">Save and sign in</button>
+          <button id="check" type="button" class="secondary">Check connection</button>
+        </div>
+        <p class="hint">Sign in opens your portal in a window, so SSO and MFA work normally. Close that window when you are done. This app never sees or stores your password.</p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><span class="num">2</span><h2 id="formTitle">Describe the tile</h2></div>
+        <div class="field">
+          <label for="name">Name</label>
+          <input id="name" type="text" maxlength="60" placeholder="HelixGPT Agent Studio">
+        </div>
+        <div class="field">
+          <label for="description">Description</label>
+          <input id="description" type="text" maxlength="200" placeholder="What this tile opens">
+        </div>
+        <div class="field">
+          <label for="url">Destination URL</label>
+          <input id="url" type="url" placeholder="https://…" autocomplete="off">
+        </div>
+        <p class="hint">Tile id <code id="tileId">custom-</code></p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><span class="num">3</span><h2>Pick an icon</h2><span id="iconName" class="pill"></span></div>
+        <input id="iconSearch" class="search" type="text" placeholder="Search 72 icons…" autocomplete="off">
+        <div id="icons" class="icons big"></div>
+      </section>
+    </div>
+
+    <aside class="right">
+      <section class="panel">
+        <div class="panel-head"><h2>Live preview</h2><span class="pill">as it appears on the portal</span></div>
+        <div class="stage">
+          <article class="tile">
+            <div class="tile-icon" id="previewIcon"></div>
+            <h3 id="previewName">Tile name</h3>
+            <p id="previewDesc">Your description appears here.</p>
+          </article>
+        </div>
+        <p id="previewUrl" class="dest"></p>
+        <div class="row wrap">
+          <button id="save" type="button" class="primary">Create tile</button>
+          <button id="cancelEdit" type="button" class="secondary hidden">Cancel edit</button>
+        </div>
+        <p id="message" class="message" role="status"></p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><h2>Your custom tiles</h2><button id="refresh" type="button" class="secondary pill-btn">Refresh</button></div>
+        <ul id="tiles" class="tiles"></ul>
+        <p id="tilesEmpty" class="empty">Sign in to see your tiles.</p>
+      </section>
+    </aside>
+  </main>
+
+  <footer>Tiles are visible to every user of the portal. Changes apply immediately.</footer>
+  <script src="icons-data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

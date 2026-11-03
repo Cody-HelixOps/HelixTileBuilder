@@ -1,0 +1,6 @@
+{
+  "name": "helix-tile-builder",
+  "private": true,
+  "type": "commonjs",
+  "scripts": { "icons": "node build-icons.js" }
+}
