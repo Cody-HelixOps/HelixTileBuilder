@@ -26,10 +26,10 @@ The tile icon URL is `<Icon site URL>/icons/<icon>.svg`. Keep `icons/` in place 
 npm install
 npm start            # run from source
 npm run dist:win     # dist/Helix-Tile-Manager-win.exe (portable, no installer)
-npm run dist:mac     # .dmg, must be run on macOS
+npm run dist:mac     # universal .dmg (Apple silicon + Intel), must be run on macOS
 ```
 
-`../ci/build.yml` builds both on GitHub runners (Actions > Build desktop installers > Run workflow),
+`../.github/workflows/build.yml` builds both on GitHub runners (Actions > Build desktop installers > Run workflow),
 which is how to get the `.dmg` without a Mac. The builds are unsigned: Windows SmartScreen and macOS Gatekeeper
 warn on first launch (macOS: right-click > Open).
 
