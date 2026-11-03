@@ -118,7 +118,6 @@
     el.name.value = t.name;
     el.description.value = t.description;
     el.url.value = t.url;
-    el.name.disabled = true; // the id is derived from the name and cannot change
     const m = /\/icons\/([a-z0-9-]+)\.svg$/.exec(t.icon);
     const known = m && ICONS.find((i) => i.key === m[1]);
     if (known) selected = known;
@@ -127,7 +126,7 @@
     el.cancelEdit.classList.remove('hidden');
     renderIcons();
     updatePreview();
-    say('');
+    say('Change any field and click Save changes. The tile id stays the same, even if you rename the tile.');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
