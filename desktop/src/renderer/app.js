@@ -12,6 +12,8 @@
     isUrl: $('isUrl'), discover: $('discover'), includeLibs: $('includeLibs'), discoverBox: $('discoverBox'),
     discoverSearch: $('discoverSearch'), discoverCount: $('discoverCount'), discoverList: $('discoverList'),
     discoverMsg: $('discoverMsg'),
+    appVersion: $('appVersion'), checkUpdate: $('checkUpdate'), updateStatus: $('updateStatus'),
+    openUpdate: $('openUpdate'), reportIssue: $('reportIssue'),
   };
   let discovered = [];
 
@@ -280,6 +282,33 @@
   });
   el.discoverSearch.addEventListener('input', renderDiscovered);
 
+  // --- Version, update check, issue reporting (footer) ---
+  async function runUpdateCheck() {
+    el.checkUpdate.disabled = true;
+    el.openUpdate.classList.add('hidden');
+    el.updateStatus.className = 'update-status';
+    el.updateStatus.textContent = 'Checking…';
+    try {
+      const u = await window.api.checkUpdate();
+      if (u.newer) {
+        el.updateStatus.className = 'update-status new';
+        el.updateStatus.textContent = 'Version ' + u.latest + ' is available.';
+        el.openUpdate.classList.remove('hidden');
+      } else {
+        el.updateStatus.textContent = 'You are up to date.';
+      }
+    } catch (e) {
+      el.updateStatus.className = 'update-status err';
+      el.updateStatus.textContent = errText(e);
+    } finally {
+      el.checkUpdate.disabled = false;
+    }
+  }
+
+  el.checkUpdate.addEventListener('click', runUpdateCheck);
+  el.openUpdate.addEventListener('click', () => window.api.openUpdate().catch((e) => { el.updateStatus.textContent = errText(e); }));
+  el.reportIssue.addEventListener('click', () => window.api.openIssues());
+
   el.cancelEdit.addEventListener('click', () => { resetForm(); say(''); });
   el.iconSearch.addEventListener('input', renderIcons);
   ['name', 'description', 'url'].forEach((k) => el[k].addEventListener('input', updatePreview));
@@ -292,5 +321,7 @@
     el.iconBaseUrl.value = s.iconBaseUrl;
     el.isUrl.value = s.isUrl || '';
     if (s.portalUrl) connect(true);
+    window.api.appInfo().then((i) => { el.appVersion.textContent = 'v' + i.version; });
+    runUpdateCheck();
   })();
 })();

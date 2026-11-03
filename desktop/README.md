@@ -13,6 +13,14 @@ Helix Portal. 72 generated icons, live tile preview, no scripts.
 5. Fill in name, description and destination URL, pick an icon, click **Create tile**.
 6. **Your custom tiles** lists existing tiles with Edit (name, description, link, icon) and Remove.
 
+The sign-in window closes by itself once the portal accepts the session. If a valid session already exists, no window opens.
+
+## Updates and support
+
+The footer shows the app version, checks the latest GitHub release at startup (and on **Check for updates**), and offers a
+**Download update** link for your platform when a newer version exists. **Report an issue on GitHub** opens a new issue
+with the app version and operating system prefilled (no portal URL or other environment details).
+
 The user needs a portal role that can manage custom applications (Administrator works).
 The app stores only the two URLs; it never sees or stores a password.
 

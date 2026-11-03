@@ -12,4 +12,8 @@ contextBridge.exposeInMainWorld('api', {
   discoverApps: call('is:discover'),
   saveApp: call('apps:save'),
   deleteApp: call('apps:delete'),
+  appInfo: call('app:info'),
+  checkUpdate: call('app:checkUpdate'),
+  openUpdate: call('app:openUpdate'),
+  openIssues: call('app:openIssues'),
 });

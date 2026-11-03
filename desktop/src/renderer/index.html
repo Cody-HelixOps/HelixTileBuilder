@@ -40,7 +40,7 @@
           <button id="signIn" type="button" class="primary">Save and sign in</button>
           <button id="check" type="button" class="secondary">Check connection</button>
         </div>
-        <p class="hint">Sign in opens your portal in a window, so SSO and MFA work normally. Close that window when you are done. This app never sees or stores your password.</p>
+        <p class="hint">Sign in opens your portal in a window, so SSO and MFA work normally. The window closes by itself once you are signed in. This app never sees or stores your password.</p>
       </section>
 
       <section class="panel">
@@ -108,7 +108,18 @@
     </aside>
   </main>
 
-  <footer>Tiles are visible to every user of the portal. Changes apply immediately.</footer>
+  <footer class="app-footer">
+    <p class="foot-note">Tiles are visible to every user of the portal. Changes apply immediately.</p>
+    <div class="foot-bar">
+      <span>Helix Tile Manager <strong id="appVersion">v</strong></span>
+      <span class="sep">&middot;</span>
+      <button id="checkUpdate" type="button" class="link">Check for updates</button>
+      <span id="updateStatus" class="update-status" role="status"></span>
+      <button id="openUpdate" type="button" class="link hidden">Download update</button>
+      <span class="sep">&middot;</span>
+      <button id="reportIssue" type="button" class="link">Report an issue on GitHub</button>
+    </div>
+  </footer>
   <script src="icons-data.js"></script>
   <script src="app.js"></script>
 </body>
