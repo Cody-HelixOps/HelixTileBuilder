@@ -9,6 +9,7 @@ contextBridge.exposeInMainWorld('api', {
   signIn: call('auth:signin'),
   check: call('auth:check'),
   listApps: call('apps:list'),
+  discoverApps: call('is:discover'),
   saveApp: call('apps:save'),
   deleteApp: call('apps:delete'),
 });

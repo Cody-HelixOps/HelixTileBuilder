@@ -121,3 +121,19 @@ button.danger:hover { background: rgba(255, 107, 107, .22); }
 .message.ok { color: var(--ok); }
 .hidden { display: none !important; }
 .pill-btn { margin-left: auto; padding: 4px 12px; font-size: 12px; }
+
+/* Innovation Studio discovery */
+.num.plus { background: rgba(255, 255, 255, .12); box-shadow: none; }
+label.check { display: inline-flex; align-items: center; gap: 8px; margin: 0; text-transform: none; letter-spacing: 0; font-size: 13px; font-weight: 500; color: var(--muted); cursor: pointer; }
+label.check input { accent-color: var(--accent); }
+#discoverBox { margin-top: 14px; }
+.discover { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 8px; max-height: 340px; overflow-y: auto; }
+.discover::-webkit-scrollbar { width: 8px; }
+.discover::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, .18); border-radius: 4px; }
+.discover li { display: flex; align-items: center; gap: 12px; padding: 10px 12px; border: 1px solid var(--line); border-radius: 12px; background: rgba(255, 255, 255, .04); }
+.discover li:hover { border-color: rgba(242, 106, 33, .5); }
+.discover .meta { min-width: 0; flex: 1; }
+.discover .meta strong, .discover .meta span, .discover .meta code { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.discover .meta span { color: var(--muted); font-size: 12px; }
+.discover .meta code { margin-top: 3px; padding: 0; background: none; font-size: 11px; }
+.discover button { padding: 5px 12px; font-size: 12px; border-radius: 8px; flex: none; }

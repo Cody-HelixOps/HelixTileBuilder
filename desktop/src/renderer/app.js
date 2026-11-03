@@ -9,7 +9,11 @@
     previewIcon: $('previewIcon'), previewName: $('previewName'), previewDesc: $('previewDesc'), previewUrl: $('previewUrl'),
     save: $('save'), cancelEdit: $('cancelEdit'), message: $('message'),
     tiles: $('tiles'), tilesEmpty: $('tilesEmpty'), refresh: $('refresh'),
+    isUrl: $('isUrl'), discover: $('discover'), includeLibs: $('includeLibs'), discoverBox: $('discoverBox'),
+    discoverSearch: $('discoverSearch'), discoverCount: $('discoverCount'), discoverList: $('discoverList'),
+    discoverMsg: $('discoverMsg'),
   };
+  let discovered = [];
 
   let selected = ICONS[0];
   let iconChosen = true; // false while editing until the user picks a new icon
@@ -164,7 +168,7 @@
   }
 
   async function saveSettings() {
-    await window.api.saveSettings({ portalUrl: el.portalUrl.value, iconBaseUrl: el.iconBaseUrl.value });
+    await window.api.saveSettings({ portalUrl: el.portalUrl.value, iconBaseUrl: el.iconBaseUrl.value, isUrl: el.isUrl.value });
   }
 
   el.signIn.addEventListener('click', async () => {
@@ -218,6 +222,65 @@
     }
   });
 
+  // --- Innovation Studio discovery ---
+  function sayDiscover(text, kind) {
+    el.discoverMsg.textContent = text || '';
+    el.discoverMsg.className = 'message' + (kind ? ' ' + kind : '');
+  }
+
+  function useApp(a) {
+    if (!editId) el.name.value = a.name.slice(0, 60);
+    el.description.value = a.description || '';
+    el.url.value = a.url;
+    updatePreview();
+    sayDiscover('Filled the tile from "' + a.name + '". Pick an icon, then create the tile.', 'ok');
+    el.url.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  function renderDiscovered() {
+    const q = el.discoverSearch.value.trim().toLowerCase();
+    const rows = discovered.filter((a) => !q || (a.name + ' ' + a.id + ' ' + a.description).toLowerCase().includes(q));
+    el.discoverList.textContent = '';
+    el.discoverCount.textContent = rows.length + ' of ' + discovered.length + ' applications';
+    rows.forEach((a) => {
+      const li = document.createElement('li');
+      const meta = document.createElement('div');
+      meta.className = 'meta';
+      const strong = document.createElement('strong');
+      strong.textContent = a.name;
+      const span = document.createElement('span');
+      span.textContent = [a.id, a.version && 'v' + a.version, a.developer].filter(Boolean).join('  ·  ');
+      const code = document.createElement('code');
+      code.textContent = a.url;
+      meta.append(strong, span, code);
+      const use = document.createElement('button');
+      use.type = 'button';
+      use.className = 'secondary';
+      use.textContent = 'Use URL';
+      use.addEventListener('click', () => useApp(a));
+      li.append(meta, use);
+      el.discoverList.appendChild(li);
+    });
+  }
+
+  el.discover.addEventListener('click', async () => {
+    sayDiscover('Finding applications in Innovation Studio…');
+    el.discover.disabled = true;
+    try {
+      await saveSettings();
+      const res = await window.api.discoverApps({ includeLibraries: el.includeLibs.checked });
+      discovered = res.apps;
+      el.discoverBox.classList.remove('hidden');
+      renderDiscovered();
+      sayDiscover(discovered.length ? 'Found ' + discovered.length + ' applications on ' + res.origin + '.' : 'No applications found.', discovered.length ? 'ok' : '');
+    } catch (e) {
+      sayDiscover(errText(e), 'err');
+    } finally {
+      el.discover.disabled = false;
+    }
+  });
+  el.discoverSearch.addEventListener('input', renderDiscovered);
+
   el.cancelEdit.addEventListener('click', () => { resetForm(); say(''); });
   el.iconSearch.addEventListener('input', renderIcons);
   ['name', 'description', 'url'].forEach((k) => el[k].addEventListener('input', updatePreview));
@@ -228,6 +291,7 @@
     const s = await window.api.getSettings();
     el.portalUrl.value = s.portalUrl;
     el.iconBaseUrl.value = s.iconBaseUrl;
+    el.isUrl.value = s.isUrl || '';
     if (s.portalUrl) connect(true);
   })();
 })();

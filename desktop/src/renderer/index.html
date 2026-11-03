@@ -32,11 +32,30 @@
           <label for="iconBaseUrl">Icon site URL <span class="hint">(your GitHub Pages site that hosts the icons)</span></label>
           <input id="iconBaseUrl" type="url" placeholder="https://myname.github.io/helix-tile-builder" autocomplete="off">
         </div>
+        <div class="field">
+          <label for="isUrl">Innovation Studio URL <span class="hint">(optional, detected from your portal when empty)</span></label>
+          <input id="isUrl" type="url" placeholder="https://mytenant-is.onbmc.com" autocomplete="off">
+        </div>
         <div class="row wrap">
           <button id="signIn" type="button" class="primary">Save and sign in</button>
           <button id="check" type="button" class="secondary">Check connection</button>
         </div>
         <p class="hint">Sign in opens your portal in a window, so SSO and MFA work normally. Close that window when you are done. This app never sees or stores your password.</p>
+      </section>
+
+      <section class="panel">
+        <div class="panel-head"><span class="num plus">+</span><h2>Find an Innovation Studio app</h2><span class="pill">optional</span></div>
+        <p class="hint">Look up the applications deployed in your environment and fill the tile with the app's Deployed Application URL.</p>
+        <div class="row wrap">
+          <button id="discover" type="button" class="primary">Discover applications</button>
+          <label class="check"><input id="includeLibs" type="checkbox"> Include libraries</label>
+        </div>
+        <div id="discoverBox" class="hidden">
+          <input id="discoverSearch" class="search" type="text" placeholder="Filter by name, id or description…" autocomplete="off">
+          <p id="discoverCount" class="hint"></p>
+          <ul id="discoverList" class="discover"></ul>
+        </div>
+        <p id="discoverMsg" class="message" role="status"></p>
       </section>
 
       <section class="panel">

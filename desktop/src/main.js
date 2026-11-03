@@ -3,6 +3,7 @@
 const { app, BrowserWindow, ipcMain, shell, session } = require('electron');
 const path = require('path');
 const fs = require('fs');
+const { toDiscovered } = require('./discover.js');
 
 const PARTITION = 'persist:helix-portal';
 const ICON_KEYS = require('./renderer/icons-data.js').ICONS.map((i) => i.key);
@@ -11,9 +12,9 @@ const settingsFile = () => path.join(app.getPath('userData'), 'settings.json');
 
 function loadSettings() {
   try {
-    return { portalUrl: '', iconBaseUrl: '', ...JSON.parse(fs.readFileSync(settingsFile(), 'utf8')) };
+    return { portalUrl: '', iconBaseUrl: '', isUrl: '', ...JSON.parse(fs.readFileSync(settingsFile(), 'utf8')) };
   } catch {
-    return { portalUrl: '', iconBaseUrl: '' };
+    return { portalUrl: '', iconBaseUrl: '', isUrl: '' };
   }
 }
 
@@ -39,6 +40,7 @@ function saveSettings(input) {
   const s = {
     portalUrl: input.portalUrl ? httpsOrigin(input.portalUrl, 'Portal URL') : '',
     iconBaseUrl: iconBase(input.iconBaseUrl),
+    isUrl: input.isUrl ? httpsOrigin(input.isUrl, 'Innovation Studio URL') : '',
   };
   fs.mkdirSync(app.getPath('userData'), { recursive: true });
   fs.writeFileSync(settingsFile(), JSON.stringify(s, null, 2));
@@ -143,6 +145,69 @@ ipcMain.handle('auth:check', async () => {
 ipcMain.handle('apps:list', async () => {
   const res = await portalApi('GET', 'custom_ui_applications?sortOrder=asc');
   return (res?.records || []).filter((r) => String(r.application_id).startsWith('custom-')).map(simplify);
+});
+
+// --- Innovation Studio discovery -------------------------------------------------------------
+const BUNDLES_PATH = '/api/rx/application/datapage?dataPageType=com.bmc.arsys.rx.application.bundle.datapage.BundleDescriptorDataPageQuery&pageSize=-1&startIndex=0&includeNonLicensedBundles=true';
+
+async function isOrigin() {
+  const s = loadSettings();
+  if (s.isUrl) return s.isUrl;
+  const list = await portalApi('GET', 'applications?orderBy=name&sortOrder=asc&page=0');
+  const rec = (list?.records || []).find((a) => a.application_id === 'IS');
+  if (!rec || !rec.service_url) {
+    throw new Error('Could not detect the Innovation Studio URL from your portal. Enter it under "Innovation Studio URL".');
+  }
+  return new URL(rec.service_url).origin;
+}
+
+async function fetchBundles(origin) {
+  try {
+    const res = await session.fromPartition(PARTITION).fetch(origin + BUNDLES_PATH, {
+      headers: { Accept: 'application/json' },
+      credentials: 'include',
+      redirect: 'manual',
+    });
+    if (!res.ok) return null;
+    const json = await res.json();
+    return Array.isArray(json?.data) ? json.data : null;
+  } catch {
+    return null;
+  }
+}
+
+// Loads Innovation Studio in the signed-in session so single sign-on creates its cookies.
+// The window stays hidden unless sign-in needs the user, then closes itself once connected.
+async function ensureIsSession(origin) {
+  const existing = await fetchBundles(origin);
+  if (existing) return existing;
+  await new Promise((resolve) => {
+    const win = new BrowserWindow({
+      width: 1000,
+      height: 760,
+      parent: mainWindow,
+      show: false,
+      title: 'Sign in to Innovation Studio. This window closes by itself when you are connected.',
+      webPreferences: { partition: PARTITION, contextIsolation: true, nodeIntegration: false, sandbox: true },
+    });
+    win.setMenuBarVisibility(false);
+    const timer = setInterval(async () => {
+      if (await fetchBundles(origin)) { if (!win.isDestroyed()) win.close(); }
+    }, 1500);
+    const reveal = setTimeout(() => { if (!win.isDestroyed()) win.show(); }, 8000);
+    win.on('closed', () => { clearInterval(timer); clearTimeout(reveal); resolve(); });
+    win.loadURL(`${origin}/helix/index.html`);
+  });
+  const data = await fetchBundles(origin);
+  if (!data) throw new Error('Could not sign in to Innovation Studio. Try again and finish the sign-in window.');
+  return data;
+}
+
+ipcMain.handle('is:discover', async (_e, opts) => {
+  const origin = await isOrigin();
+  const bundles = await ensureIsSession(origin);
+  const apps = toDiscovered(bundles, origin, !!(opts && opts.includeLibraries));
+  return { origin, apps };
 });
 
 ipcMain.handle('apps:save', async (_e, input) => {

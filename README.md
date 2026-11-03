@@ -4,7 +4,7 @@ Create custom application tiles on a Helix Portal from a Windows or macOS app.
 
 | Folder | What it is |
 |---|---|
-| `docs/` | The GitHub Pages site: landing page with download links and instructions, the 72 hosted icons (`docs/icons/`), and a no-install browser version (`docs/web/`). |
+| `docs/` | The GitHub Pages site: landing page with download links and instructions, the 72 hosted icons (`docs/icons/`). |
 | `desktop/` | The Electron desktop app (source). |
 | `.github/workflows/build.yml` | GitHub Actions workflow that builds the Windows `.exe` and a universal (Apple silicon + Intel) macOS `.dmg` and publishes them as a Release when a `v*` tag is pushed. |
 
