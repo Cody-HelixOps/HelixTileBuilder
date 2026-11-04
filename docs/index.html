@@ -64,15 +64,7 @@
       </li>
       <li>
         <h3>Enter your environment</h3>
-        <p>In <strong>Connect your environment</strong>, fill in two fields:</p>
-        <ul>
-          <li><strong>Portal URL</strong>: the address of your Helix Portal, for example <code>https://mytenant-itom.onbmc.com</code>.</li>
-          <li><strong>Icon site URL</strong>: this website. The portal needs a web address for each icon, and this site hosts all 72. Copy the value below.</li>
-        </ul>
-        <div class="copybox">
-          <code id="siteUrl">https://</code>
-          <button id="copySite" type="button" class="btn small">Copy</button>
-        </div>
+        <p>In <strong>Connect your environment</strong>, fill in <strong>Portal URL</strong>: the address of your Helix Portal, for example <code>https://mytenant-itom.onbmc.com</code>.</p>
       </li>
       <li>
         <h3>Sign in</h3>
@@ -104,8 +96,8 @@
   <section id="faq" class="faq">
     <h2>Questions</h2>
     <details>
-      <summary>Why does the app need an Icon site URL?</summary>
-      <p>The portal only accepts a normal web address for a tile icon, not an embedded image. This site serves the icons, and the app builds each tile's icon address from it. If you leave the field empty, tiles use the default portal icon.</p>
+      <summary>What is the optional Icon site URL?</summary>
+      <p>The portal only accepts a normal web address for a tile icon, not an embedded image, so the app points each tile at an icon hosted on this site. To host the icons yourself, enter your own site in <strong>Icon site URL</strong> under <strong>Pick an icon</strong>. It must serve the same files at <code>icons/&lt;name&gt;.svg</code>. Leave it empty to use this site.</p>
     </details>
     <details>
       <summary>Is it safe? What about my password?</summary>
@@ -125,7 +117,7 @@
     </details>
     <details>
       <summary>The tile shows the default icon instead of mine.</summary>
-      <p>Check that <strong>Icon site URL</strong> matches this site's address exactly, with no trailing page name, and that this site is still online. Edit the tile and pick the icon again to refresh it.</p>
+      <p>If you set an <strong>Icon site URL</strong>, check that it is correct and that the site is online, or clear the field to use this site. Then edit the tile and pick the icon again to refresh it.</p>
     </details>
   </section>
 

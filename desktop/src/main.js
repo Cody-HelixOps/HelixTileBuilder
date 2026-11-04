@@ -8,6 +8,7 @@ const { toDiscovered } = require('./discover.js');
 const { summarizeRelease } = require('./update.js');
 
 const REPO = 'Cody-HelixOps/HelixTileBuilder';
+const DEFAULT_ICON_SITE = 'https://cody-helixops.github.io/HelixTileBuilder';
 
 const PARTITION = 'persist:helix-portal';
 const ICON_KEYS = require('./renderer/icons-data.js').ICONS.map((i) => i.key);
@@ -249,9 +250,9 @@ ipcMain.handle('apps:save', async (_e, input) => {
   let iconUrl = editing ? componentOf(editing).image_source_uri : '';
   if (input.iconKey) {
     if (!ICON_KEYS.includes(input.iconKey)) throw new Error('Unknown icon.');
-    if (s.iconBaseUrl) iconUrl = `${s.iconBaseUrl}/icons/${input.iconKey}.svg`;
+    iconUrl = `${s.iconBaseUrl || DEFAULT_ICON_SITE}/icons/${input.iconKey}.svg`;
   }
-  const iconFallback = !iconUrl || (!!input.iconKey && !s.iconBaseUrl);
+  const iconFallback = !iconUrl;
   if (!iconUrl) iconUrl = `${s.portalUrl}/admin/assets/icon-platform.svg`;
 
   const body = {

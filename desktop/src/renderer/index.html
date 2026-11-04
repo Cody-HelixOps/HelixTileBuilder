@@ -29,10 +29,6 @@
           <input id="portalUrl" type="url" placeholder="https://mytenant-itom-demo.onbmc.com" autocomplete="off">
         </div>
         <div class="field">
-          <label for="iconBaseUrl">Icon site URL <span class="hint">(your GitHub Pages site that hosts the icons)</span></label>
-          <input id="iconBaseUrl" type="url" placeholder="https://myname.github.io/helix-tile-builder" autocomplete="off">
-        </div>
-        <div class="field">
           <label for="isUrl">Innovation Studio URL <span class="hint">(optional, detected from your portal when empty)</span></label>
           <input id="isUrl" type="url" placeholder="https://mytenant-is.onbmc.com" autocomplete="off">
         </div>
@@ -79,6 +75,10 @@
         <div class="panel-head"><span class="num">3</span><h2>Pick an icon</h2><span id="iconName" class="pill"></span></div>
         <input id="iconSearch" class="search" type="text" placeholder="Search 72 icons…" autocomplete="off">
         <div id="icons" class="icons big"></div>
+        <div class="field icon-site">
+          <label for="iconBaseUrl">Icon site URL <span class="hint">(optional, override to host the icons on your own site)</span></label>
+          <input id="iconBaseUrl" type="url" placeholder="https://myname.github.io/helix-tile-builder" autocomplete="off">
+        </div>
       </section>
     </div>
 

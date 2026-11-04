@@ -29,7 +29,7 @@ To build only, run the workflow manually from the **Actions** tab; the installer
 
 ## Users
 
-Send them the Pages URL. The page explains the steps, and shows the exact **Icon site URL** to paste into the app.
+Send them the Pages URL. The page explains the steps. Icons load from the project's Pages site by default; **Icon site URL** is an optional override.
 
 ## Notes
 

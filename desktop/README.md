@@ -6,12 +6,11 @@ Helix Portal. 72 generated icons, live tile preview, no scripts.
 ## Use
 
 1. Enter your **Portal URL** (for example `https://mytenant-itom-demo.onbmc.com`).
-2. Enter your **Icon site URL**: the GitHub Pages site from `../docs` (it hosts `icons/*.svg`).
-   Leave it empty to use the default portal icon.
-3. Click **Save and sign in**. A window opens the portal; sign in with SSO/MFA as usual, then close it.
-4. Optional: click **Discover applications** to list the Innovation Studio apps deployed in your environment (the host is detected from your portal, or set **Innovation Studio URL**). **Use URL** fills the tile with the app's Deployed Application URL (`<IS host>/helix/index.html#/<bundle id>`). Tick **Include libraries** to list non-application bundles too.
-5. Fill in name, description and destination URL, pick an icon, click **Create tile**.
-6. **Your custom tiles** lists existing tiles with Edit (name, description, link, icon) and Remove.
+2. Click **Save and sign in**. A window opens the portal; sign in with SSO/MFA as usual, then close it.
+3. Optional: click **Discover applications** to list the Innovation Studio apps deployed in your environment (the host is detected from your portal, or set **Innovation Studio URL**). **Use URL** fills the tile with the app's Deployed Application URL (`<IS host>/helix/index.html#/<bundle id>`). Tick **Include libraries** to list non-application bundles too.
+4. Fill in name, description and destination URL, pick an icon, click **Create tile**.
+   Optional: set **Icon site URL** under **Pick an icon** to host the icons on your own site.
+5. **Your custom tiles** lists existing tiles with Edit (name, description, link, icon) and Remove.
 
 The sign-in window closes by itself once the portal accepts the session. If a valid session already exists, no window opens.
 
@@ -26,8 +25,9 @@ The app stores only the two URLs; it never sees or stores a password.
 
 ## Why icons need a website
 
-The portal accepts only an http(s) URL for a tile icon, so the icons are served from your Pages site.
-The tile icon URL is `<Icon site URL>/icons/<icon>.svg`. Keep `icons/` in place after tiles exist.
+The portal accepts only an http(s) URL for a tile icon, so the icons are served from a website.
+By default that is the project's Pages site (`DEFAULT_ICON_SITE` in `src/main.js`, built from `../docs`). **Icon site URL** overrides it.
+The tile icon URL is `<icon site>/icons/<icon>.svg`. Keep `icons/` in place after tiles exist.
 
 ## Run and build
 

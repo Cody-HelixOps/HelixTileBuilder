@@ -212,7 +212,7 @@
       });
       const base = 'Tile "' + el.name.value.trim() + '" ' + (res.updated ? 'updated' : 'created') + '.';
       say(res.iconFallback
-        ? base + ' No icon site URL is set, so it uses the default portal icon.'
+        ? base + ' It has no icon yet, so it uses the default portal icon.'
         : base + ' It shows on the portal\'s Custom applications tab.', 'ok');
       resetForm();
       await loadTiles();

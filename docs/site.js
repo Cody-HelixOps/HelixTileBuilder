@@ -2,10 +2,6 @@
 (() => {
   const $ = (id) => document.getElementById(id);
 
-  // Site root URL (what users paste into the app as "Icon site URL").
-  const siteUrl = new URL('.', location.href).href.replace(/\/$/, '');
-  $('siteUrl').textContent = siteUrl;
-
   // Download links: GitHub Releases of the repo that hosts this Pages site (https://owner.github.io/repo/).
   const m = /^([a-z0-9-]+)\.github\.io$/i.exec(location.hostname);
   const repo = location.pathname.split('/').filter(Boolean)[0];
@@ -21,16 +17,6 @@
     $('allReleases').removeAttribute('href');
     $('dlNote').textContent = 'Download links activate when this page is published on GitHub Pages and a release exists.';
   }
-
-  $('copySite').addEventListener('click', async (e) => {
-    try {
-      await navigator.clipboard.writeText(siteUrl);
-      e.target.textContent = 'Copied';
-    } catch {
-      e.target.textContent = 'Copy failed';
-    }
-    setTimeout(() => { e.target.textContent = 'Copy'; }, 1800);
-  });
 
   const grid = $('iconGrid');
   ICONS.forEach((icon) => {

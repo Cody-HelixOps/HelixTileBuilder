@@ -55,8 +55,6 @@ h3 { margin: 0 0 6px; font-size: 18px; }
 .guide li li { margin-bottom: 4px; }
 .hint { font-size: 13px; color: var(--muted) !important; }
 code { padding: 2px 7px; border-radius: 6px; background: rgba(255, 255, 255, .09); color: var(--accent2); font: 13px Consolas, monospace; overflow-wrap: anywhere; }
-.copybox { display: flex; align-items: center; gap: 12px; margin-top: 10px; padding: 10px 12px; border-radius: 12px; border: 1px solid var(--line); background: rgba(8, 12, 26, .6); }
-.copybox code { flex: 1; background: none; padding: 0; font-size: 14px; }
 
 details { border-top: 1px solid var(--line); padding: 12px 2px; }
 .guide details { border: 0; padding: 4px 0 0; }
