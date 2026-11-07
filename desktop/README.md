@@ -40,7 +40,7 @@ npm run dist:mac     # universal .dmg (Apple silicon + Intel), must be run on ma
 
 `../.github/workflows/build.yml` builds both on GitHub runners (Actions > Build desktop installers > Run workflow),
 which is how to get the `.dmg` without a Mac. The builds are unsigned: Windows SmartScreen and macOS Gatekeeper
-warn on first launch (macOS: right-click > Open).
+warn on first launch (macOS 15 and later: System Settings > Privacy & Security > Open Anyway; earlier: right-click > Open).
 
 ## Icons
 
