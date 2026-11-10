@@ -96,12 +96,12 @@
   <section id="faq" class="faq">
     <h2>Questions</h2>
     <details>
-      <summary>What is the optional Icon site URL?</summary>
-      <p>The portal only accepts a normal web address for a tile icon, not an embedded image, so the app points each tile at an icon hosted on this site. To host the icons yourself, enter your own site in <strong>Icon site URL</strong> under <strong>Pick an icon</strong>. It must serve the same files at <code>icons/&lt;name&gt;.svg</code>. Leave it empty to use this site.</p>
+      <summary>Where do the icons come from?</summary>
+      <p>The portal only accepts a normal web address for a tile icon, not an embedded image. The app always points the tile at the matching SVG on this site (<code>icons/&lt;name&gt;.svg</code>). The icon you pick is the icon the tile uses.</p>
     </details>
     <details>
       <summary>Is it safe? What about my password?</summary>
-      <p>The app never asks for a password. Sign-in happens in the portal's own page inside a separate window, the same as in a browser. The app stores only your two URLs on your computer and talks only to your portal.</p>
+      <p>The app never asks for a password. Sign-in happens in the portal's own page inside a separate window, the same as in a browser. The app stores only your portal URL and Innovation Studio URL on your computer and talks only to your portal.</p>
     </details>
     <details>
       <summary>Who can see the tiles?</summary>
@@ -117,7 +117,7 @@
     </details>
     <details>
       <summary>The tile shows the default icon instead of mine.</summary>
-      <p>If you set an <strong>Icon site URL</strong>, check that it is correct and that the site is online, or clear the field to use this site. Then edit the tile and pick the icon again to refresh it.</p>
+      <p>Tiles created by an older version of the app, before it always used the icons on this site, kept the portal's default icon. Edit the tile, pick the icon again, and save. The tile then uses that icon from this site.</p>
     </details>
   </section>
 

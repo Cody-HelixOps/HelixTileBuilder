@@ -29,7 +29,7 @@ To build only, run the workflow manually from the **Actions** tab; the installer
 
 ## Users
 
-Send them the Pages URL. The page explains the steps. Icons load from the project's Pages site by default; **Icon site URL** is an optional override.
+Send them the Pages URL. The page explains the steps. Every tile icon is one of the SVGs on that Pages site.
 
 ## Notes
 

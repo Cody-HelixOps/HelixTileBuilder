@@ -1,3 +1,8 @@
+<!-- @generated
+ @context Remove the Icon site URL field so the picker is the only icon choice.
+ @decisions The included Pages icons are applied on every save.
+ @references desktop/src/main.js
+ @modified 2026-11-09 -->
 <!doctype html>
 <html lang="en">
 <head>
@@ -75,10 +80,6 @@
         <div class="panel-head"><span class="num">3</span><h2>Pick an icon</h2><span id="iconName" class="pill"></span></div>
         <input id="iconSearch" class="search" type="text" placeholder="Search 72 icons…" autocomplete="off">
         <div id="icons" class="icons big"></div>
-        <div class="field icon-site">
-          <label for="iconBaseUrl">Icon site URL <span class="hint">(optional, override to host the icons on your own site)</span></label>
-          <input id="iconBaseUrl" type="url" placeholder="https://myname.github.io/helix-tile-builder" autocomplete="off">
-        </div>
       </section>
     </div>
 

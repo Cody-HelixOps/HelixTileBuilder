@@ -9,7 +9,6 @@ Helix Portal. 72 generated icons, live tile preview, no scripts.
 2. Click **Save and sign in**. A window opens the portal; sign in with SSO/MFA as usual, then close it.
 3. Optional: click **Discover applications** to list the Innovation Studio apps deployed in your environment (the host is detected from your portal, or set **Innovation Studio URL**). **Use URL** fills the tile with the app's Deployed Application URL (`<IS host>/helix/index.html#/<bundle id>`). Tick **Include libraries** to list non-application bundles too.
 4. Fill in name, description and destination URL, pick an icon, click **Create tile**.
-   Optional: set **Icon site URL** under **Pick an icon** to host the icons on your own site.
 5. **Your custom tiles** lists existing tiles with Edit (name, description, link, icon) and Remove.
 
 The sign-in window closes by itself once the portal accepts the session. If a valid session already exists, no window opens.
@@ -21,13 +20,13 @@ The footer shows the app version, checks the latest GitHub release at startup (a
 with the app version and operating system prefilled (no portal URL or other environment details).
 
 The user needs a portal role that can manage custom applications (Administrator works).
-The app stores only the two URLs; it never sees or stores a password.
+The app stores only the portal URL and the Innovation Studio URL; it never sees or stores a password.
 
 ## Why icons need a website
 
 The portal accepts only an http(s) URL for a tile icon, so the icons are served from a website.
-By default that is the project's Pages site (`DEFAULT_ICON_SITE` in `src/main.js`, built from `../docs`). **Icon site URL** overrides it.
-The tile icon URL is `<icon site>/icons/<icon>.svg`. Keep `icons/` in place after tiles exist.
+Every tile uses the project's Pages site (`DEFAULT_ICON_SITE` in `src/main.js`, built from `../docs`).
+The tile icon URL is `<that site>/icons/<icon>.svg`. Keep `icons/` in place after tiles exist.
 
 ## Run and build
 
